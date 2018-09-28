@@ -21,6 +21,4 @@
        Verlag, Berlin Heidelberg, Heidelberg, 1994.
        http://www.springerlink.com/content/br49t9h4l7mm/?MUD=MP
 - Study Ants Algorithm
-
-
-
+- Study JUnit
