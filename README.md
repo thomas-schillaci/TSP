@@ -23,7 +23,7 @@
 - Study Ants Algorithm
 - Study JUnit
 
-##Solutions considered
+## Solutions considered
 - local search
 - genetic algorithm (ants algo.)
 - nearest neighbor
