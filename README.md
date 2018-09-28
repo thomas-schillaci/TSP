@@ -1,6 +1,6 @@
-#Travelling Salesman Problem solver in Java
+# Travelling Salesman Problem solver in Java
 
-##TODO
+## TODO
 - Read D.L. Applegate, R.E. Bixby, V. 
        Chvatal
        , and W.J. Cook. 
