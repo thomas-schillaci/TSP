@@ -235,7 +235,7 @@ public class Instance {
 			lineSc.useLocale(Locale.US);
 			for (int j = i + 1; j < m_nbCities; j++) {
 				long dist = lineSc.nextInt();
-				System.out.println(dist);
+//				System.out.println(dist);
 				m_distances[i][j] = dist;
 				m_distances[j][i] = dist;
 			}
