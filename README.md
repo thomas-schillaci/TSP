@@ -29,3 +29,5 @@
 - local search
 - genetic algorithm (ants algo.)
 - nearest neighbor
+- Branch and bound (40-60 cities)
+- V-opt heuristics
