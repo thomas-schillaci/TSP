@@ -46,7 +46,7 @@ abstract public class AHeuristic {
 	// -----------------------------
 
 	/** Apply the heuristic to build m_solution */
-	public abstract Solution solve() throws Exception;
+	public abstract void solve() throws Exception;
 	
 	
 	// -----------------------------
