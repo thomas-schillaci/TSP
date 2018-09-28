@@ -22,3 +22,8 @@
        http://www.springerlink.com/content/br49t9h4l7mm/?MUD=MP
 - Study Ants Algorithm
 - Study JUnit
+
+##Solutions considered
+- local search
+- genetic algorithm (ants algo.)
+- nearest neighbor
