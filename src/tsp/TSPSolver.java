@@ -1,5 +1,7 @@
 package tsp;
 
+import java.util.Arrays;
+
 /**
  * This class is the place where you should enter your code and from which you can create your own objects.
  * <p>
@@ -71,17 +73,16 @@ public class TSPSolver {
      * @throws Exception may return some error, in particular if some vertices index are wrong.
      */
     public void solve() throws Exception {
-        m_solution.print(System.err);
+        GeneticSolver gs = new GeneticSolver(m_instance);
 
-        // Example of a time loop
         long startTime = System.currentTimeMillis();
-        long spentTime = 0;
-        do {
-            // TODO
-            // Code a loop base on time here
-            spentTime = System.currentTimeMillis() - startTime;
-        } while (spentTime < (m_timeLimit * 1000 - 100));
+        while(System.currentTimeMillis()-startTime<m_timeLimit*1000) m_solution = gs.next();
 
+        System.out.println(Arrays.toString(gs.getObjectiveValues().toArray()));
+
+        m_solution = gs.next();
+
+        m_solution.print(System.err);
     }
 
     // -----------------------------
