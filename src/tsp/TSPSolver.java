@@ -1,7 +1,5 @@
 package tsp;
 
-import java.util.Arrays;
-
 /**
  * This class is the place where you should enter your code and from which you can create your own objects.
  * <p>
@@ -73,14 +71,12 @@ public class TSPSolver {
      * @throws Exception may return some error, in particular if some vertices index are wrong.
      */
     public void solve() throws Exception {
-        GeneticSolver gs = new GeneticSolver(m_instance);
+        GeneticHeuristic heuristic = new GeneticHeuristic(m_instance);
 
         long startTime = System.currentTimeMillis();
-        while(System.currentTimeMillis()-startTime<m_timeLimit*1000) m_solution = gs.next();
+        while(System.currentTimeMillis()-startTime<m_timeLimit*1000) heuristic.solve();
 
-        System.out.println(Arrays.toString(gs.getObjectiveValues().toArray()));
-
-        m_solution = gs.next();
+        m_solution = heuristic.getSolution();
 
         m_solution.print(System.err);
     }
