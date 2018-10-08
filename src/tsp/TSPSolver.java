@@ -71,17 +71,14 @@ public class TSPSolver {
      * @throws Exception may return some error, in particular if some vertices index are wrong.
      */
     public void solve() throws Exception {
-        m_solution.print(System.err);
+        GeneticHeuristic heuristic = new GeneticHeuristic(m_instance);
 
-        // Example of a time loop
         long startTime = System.currentTimeMillis();
-        long spentTime = 0;
-        do {
-            // TODO
-            // Code a loop base on time here
-            spentTime = System.currentTimeMillis() - startTime;
-        } while (spentTime < (m_timeLimit * 1000 - 100));
+        while(System.currentTimeMillis()-startTime<m_timeLimit*1000) heuristic.solve();
 
+        m_solution = heuristic.getSolution();
+
+        m_solution.print(System.err);
     }
 
     // -----------------------------
