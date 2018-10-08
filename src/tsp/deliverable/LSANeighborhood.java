@@ -12,7 +12,6 @@ import tsp.neighborhood.ANeighborhood;
  *
  */
 public class LSANeighborhood extends ANeighborhood {
-	Instance m_instance;
 
 	public LSANeighborhood(Instance instance, String name) throws Exception {
 		super(instance, name);
@@ -27,8 +26,8 @@ public class LSANeighborhood extends ANeighborhood {
 	public List<Solution> getNeighborhood(Solution sol) throws Exception {
 		// TODO Auto-generated method stub
 		List<Solution> solutions = new ArrayList<Solution>();
-		for(int i=1;i<m_instance.getNbCities()-1;i++) {
-			for(int j=1; j<m_instance.getNbCities()-1;j++) {
+		for(int i=1;i<super.m_instance.getNbCities()-1;i++) {
+			for(int j=1; j<super.m_instance.getNbCities()-1;j++) {
 				if(i!=j) solutions.add( swap(i,j,sol) ); 
 			}
 		}
