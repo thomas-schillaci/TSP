@@ -1,5 +1,8 @@
 package tsp;
 
+import tsp.deliverable.GeneticHeuristic;
+import tsp.heuristic.AHeuristic;
+
 /**
  * This class is the place where you should enter your code and from which you can create your own objects.
  * <p>
@@ -71,10 +74,10 @@ public class TSPSolver {
      * @throws Exception may return some error, in particular if some vertices index are wrong.
      */
     public void solve() throws Exception {
-        GeneticHeuristic heuristic = new GeneticHeuristic(m_instance);
-
         long startTime = System.currentTimeMillis();
-        while(System.currentTimeMillis()-startTime<m_timeLimit*1000) heuristic.solve();
+
+        AHeuristic heuristic = new GeneticHeuristic(m_instance);
+        while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) heuristic.solve();
 
         m_solution = heuristic.getSolution();
 
