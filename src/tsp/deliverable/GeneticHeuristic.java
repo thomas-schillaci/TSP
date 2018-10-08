@@ -17,8 +17,6 @@ import java.util.ArrayList;
  *
  * @author thomas-schillaci
  */
-
-/* idees = MUTATION_RATE evolutif : par rapport au temps ou score ; partir d'une solution intuitive et peu couteuse plutôt que l'aléa; éviter les mutations des suites de villes qui scorent le moins */
 public class GeneticHeuristic extends AHeuristic {
 
     private final int POPULATION = 500;
