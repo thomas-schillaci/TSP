@@ -17,7 +17,7 @@ public class LocalSearchHeuristic extends AHeuristic {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Solution getBestEver() {
+	public Solution getSolution() {
 		return bestEver;
 	}
 
@@ -30,8 +30,9 @@ public class LocalSearchHeuristic extends AHeuristic {
 		// TODO Auto-generated method stub
 		List<Solution> neighborhood = neighbors.getNeighborhood(bestEver);
 		for(Solution s : neighborhood) {
-			if(s.getObjectiveValue()<bestEver.getObjectiveValue()) bestEver=s;
+			if(s.evaluate()<bestEver.evaluate()) bestEver=s;
 		}
+		System.out.println(bestEver.evaluate());
 	}
 
 }
