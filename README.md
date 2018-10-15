@@ -22,6 +22,7 @@
        http://www.springerlink.com/content/br49t9h4l7mm/?MUD=MP
 - Study Ants Algorithm
 - Bruteforce heuristic
+- Nearest neighbor
 - Local search heuristic
 - Add condition not to exceed computation time limit
 - Create a function of the number of cities deciding which heuristics to use + tables of results

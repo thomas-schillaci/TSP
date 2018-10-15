@@ -2,6 +2,7 @@ package tsp;
 
 import tsp.deliverable.BruteForceHeuristic;
 import tsp.deliverable.GeneticHeuristic;
+import tsp.deliverable.LocalSearchHeuristic;
 import tsp.heuristic.AHeuristic;
 
 /**
@@ -76,8 +77,13 @@ public class TSPSolver {
      */
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
-
+        
         AHeuristic heuristic = new GeneticHeuristic(m_instance);
+        //LocalSearchHeuristic heuristic = new LocalSearchHeuristic(m_instance, "LC");
+        //Solution sol = new Solution(m_instance);
+        //for (int i = 0; i < m_instance.getNbCities(); i++) sol.setCityPosition(i,i);
+        //sol.setCityPosition(0, m_instance.getNbCities());
+        //heuristic.setBestEver(sol);
         while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) heuristic.solve();
 
         m_solution = heuristic.getSolution();
