@@ -81,7 +81,7 @@ public class TSPSolver {
 //        while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) heuristic.solve();
         
         AHeuristic nearestNeighbor=new NearestNeighbor(m_instance);
-        while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) nearestNeighbor.solve();
+        nearestNeighbor.solve();
 
         m_solution = nearestNeighbor.getSolution();
 
