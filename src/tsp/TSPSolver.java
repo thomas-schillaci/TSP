@@ -1,6 +1,7 @@
 package tsp;
 
 import tsp.deliverable.GeneticHeuristic;
+import tsp.deliverable.NearestNeighbor;
 import tsp.heuristic.AHeuristic;
 
 /**
@@ -76,10 +77,13 @@ public class TSPSolver {
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
 
-        AHeuristic heuristic = new GeneticHeuristic(m_instance);
-        while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) heuristic.solve();
+//        AHeuristic heuristic = new GeneticHeuristic(m_instance);
+//        while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) heuristic.solve();
+        
+        AHeuristic nearestNeighbor=new NearestNeighbor(m_instance);
+        while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) nearestNeighbor.solve();
 
-        m_solution = heuristic.getSolution();
+        m_solution = nearestNeighbor.getSolution();
 
         m_solution.print(System.err);
     }
