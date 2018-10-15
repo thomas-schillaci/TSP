@@ -8,12 +8,12 @@ import tsp.heuristic.AHeuristic;
 
 public class LocalSearchHeuristic extends AHeuristic {
 	private Solution bestEver;
-	private LSANeighborhood neighbors;
+	private LSA_SwapNeighborhood neighbors;
 
 	public LocalSearchHeuristic(Instance instance, String name) throws Exception {
 		super(instance, name);
 		bestEver=null;
-		neighbors=new LSANeighborhood(instance, "neighbors");
+		neighbors=new LSA_SwapNeighborhood(instance, "neighbors");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -11,9 +11,9 @@ import tsp.neighborhood.ANeighborhood;
  * @author leovu
  *
  */
-public class LSANeighborhood extends ANeighborhood {
+public class LSA_SwapNeighborhood extends ANeighborhood {
 
-	public LSANeighborhood(Instance instance, String name) throws Exception {
+	public LSA_SwapNeighborhood(Instance instance, String name) throws Exception {
 		super(instance, name);
 		// TODO Auto-generated constructor stub
 	}
