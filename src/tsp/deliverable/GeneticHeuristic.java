@@ -46,7 +46,6 @@ public class GeneticHeuristic extends AHeuristic {
         Solution best = chromosomes[0];
         for (Solution chromosome : chromosomes) if (getScore(chromosome) > getScore(best)) best = chromosome;
         lastObjectiveValue = best.getObjectiveValue();
-        System.out.println(getScore(best));
 
         m_solution = best;
     }
@@ -76,7 +75,6 @@ public class GeneticHeuristic extends AHeuristic {
         float totalScore = 0;
         for (Solution chromosome : chromosomes) totalScore += getScore(chromosome);
         Solution[] newGeneration = new Solution[POPULATION];
-        if(totalScore<0) System.out.println("Negative total score");
 
         Solution best = chromosomes[0];
         for (Solution chromosome : chromosomes) if (getScore(chromosome) > getScore(best)) best = chromosome;

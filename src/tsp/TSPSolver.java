@@ -1,5 +1,6 @@
 package tsp;
 
+import tsp.deliverable.BruteForceHeuristic;
 import tsp.deliverable.GeneticHeuristic;
 import tsp.heuristic.AHeuristic;
 
