@@ -18,7 +18,7 @@ import tsp.heuristic.AHeuristic;
  * @version 2017
  */
 public class TSPSolver {
-
+	
     // -----------------------------
     // ----- ATTRIBUTS -------------
     // -----------------------------
