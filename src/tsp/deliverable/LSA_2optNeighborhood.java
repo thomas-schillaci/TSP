@@ -26,8 +26,8 @@ public class LSA_2optNeighborhood extends ANeighborhood{
 	public List<Solution> getNeighborhood(Solution sol) throws Exception {
 		// TODO Auto-generated method stub
 		List<Solution> solutions = new ArrayList<Solution>();
-		for(int i=1;i<super.m_instance.getNbCities()-1;i++) {
-			for(int j=1; j<super.m_instance.getNbCities()-1;j++) {
+		for(int i=1;i<=super.m_instance.getNbCities()-1;i++) {
+			for(int j=2; j<=super.m_instance.getNbCities()-1;j++) {
 				if(j!=i-1 && j!=i && j!=i+1 && 
 						m_instance.getDistances(sol.getCity(i), sol.getCity(i+1))+m_instance.getDistances(sol.getCity(j), sol.getCity(j+1))>
 				        m_instance.getDistances(sol.getCity(i), sol.getCity(j))+m_instance.getDistances(sol.getCity(i+1), sol.getCity(j+1))
