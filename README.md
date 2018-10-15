@@ -25,6 +25,9 @@
 
 - Read https://www.researchgate.net/profile/Hicham_El_Hassani2/publication/275966237_Comparaison_de_l'optimisation_par_colonies_de_fourmis_et_des_Algorithmes_Genetiques_pour_la_resolution_du_probleme_du_voyageur_de_commerce/links/5627e45408ae22b1702d9aa3/Comparaison-de-loptimisation-par-colonies-de-fourmis-et-des-Algorithmes-Genetiques-pour-la-resolution-du-probleme-du-voyageur-de-commerce.pdf?origin=publication_detail
 
+- 2-opt https://web.tuke.sk/fei-cit/butka/hop/htsp.pdf 
+- Local search ameliorations :https://pdfs.semanticscholar.org/ab7c/c83bb513a91b06f6c8bc3b9da7f60cbbaee5.pdf 
+
 ## Solutions considered
 - local search
 - genetic algorithm (ants algo.)

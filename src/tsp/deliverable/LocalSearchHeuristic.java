@@ -32,7 +32,6 @@ public class LocalSearchHeuristic extends AHeuristic {
 		for(Solution s : neighborhood) {
 			if(s.evaluate()<bestEver.evaluate()) bestEver=s;
 		}
-		System.out.println(bestEver.evaluate());
 	}
 
 }
