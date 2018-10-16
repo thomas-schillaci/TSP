@@ -34,7 +34,7 @@
 - Local search ameliorations :https://pdfs.semanticscholar.org/ab7c/c83bb513a91b06f6c8bc3b9da7f60cbbaee5.pdf 
 
 ## Solutions considered
-- local search
+- local search (swapNeighborhood seems useless)
 - genetic algorithm (ants algo.)
 - nearest neighbor
 - Branch and bound (40-60 cities)
