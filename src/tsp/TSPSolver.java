@@ -77,9 +77,10 @@ public class TSPSolver {
      */
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
-      
+
         AHeuristic bestInsertion=new NearestNeighbor(m_instance);
         bestInsertion.solve();
+
 
         m_solution = bestInsertion.getSolution();
     }

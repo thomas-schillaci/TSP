@@ -26,29 +26,31 @@ public class LSA_2optNeighborhood extends ANeighborhood{
 	public List<Solution> getNeighborhood(Solution sol) throws Exception {
 		// TODO Auto-generated method stub
 		List<Solution> solutions = new ArrayList<Solution>();
-		for(int i=1;i<super.m_instance.getNbCities()-1;i++) {
-			for(int j=1; j<super.m_instance.getNbCities()-1;j++) {
-				if(j!=i-1 && j!=i && j!=i+1 && 
-						m_instance.getDistances(i, i+1)+m_instance.getDistances(j, j+1)>
-				        m_instance.getDistances(i, j)+m_instance.getDistances(i+1, j+1)
-				        //we need to check if the triangle inequality is verified
-						) solutions.add(swap(i+1,j,sol));
-			}
-		}
+		for (int i = 1; i < super.m_instance.getNbCities() - 2; i++) {
+	           for (int j = i + 1; j < super.m_instance.getNbCities() - 1; j++) {
+	        	   if(
+							m_instance.getDistances(sol.getCity(i-1), sol.getCity(i))+m_instance.getDistances(sol.getCity(j), sol.getCity(j+1))>
+					        m_instance.getDistances(sol.getCity(i), sol.getCity(j+1))+m_instance.getDistances(sol.getCity(i-1), sol.getCity(j))
+					        //we need to check if the triangle inequality is verified
+	               ) solutions.add(twoOptSwap(i, j, sol));
+	           }
+	       }
 		return solutions;
 	}
 	
 	/**
-	 * @return Creates a new solution where we have switched the index i with the index j in the Solution sol
+	 * @return Creates a new solution where we have inverted the order of the cities between 
+	 * the index i and the index j (including i and j) in the Solution sol
 	 *  
 	 */
-		public Solution swap(int i, int j, Solution sol) {
-			int temp;
+		public Solution twoOptSwap(int i, int j, Solution sol) {
 			Solution solution = sol.copy();
 			try {
-				temp = solution.getCity(j);
-				solution.setCityPosition(sol.getCity(i), j);
-				solution.setCityPosition(temp, i);
+				int dec = 0;
+				for(int k=i;k<=j;k++) {
+					solution.setCityPosition(sol.getCity(j-dec),k);
+					dec++;
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
