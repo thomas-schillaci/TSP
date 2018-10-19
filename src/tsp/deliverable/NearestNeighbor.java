@@ -34,9 +34,9 @@ public class NearestNeighbor extends AHeuristic{
 			int nextCity=findNearestNeighbor(solution.getCity(i-1),unused);
 			unused.remove(unused.indexOf(nextCity));
 			solution.setCityPosition(nextCity, i);
-			m_solution=solution;
-			m_solution.evaluate();
 		}
+		m_solution=solution;
+		m_solution.evaluate();
 	}
 
 // Finds the nearest city from a given city within a list of cities

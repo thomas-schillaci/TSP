@@ -78,10 +78,10 @@ public class TSPSolver {
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
       
-        AHeuristic nearestNeighbor=new NearestNeighbor(m_instance);
-        nearestNeighbor.solve();
+        AHeuristic bestInsertion=new NearestNeighbor(m_instance);
+        bestInsertion.solve();
 
-        m_solution = nearestNeighbor.getSolution();
+        m_solution = bestInsertion.getSolution();
     }
 
     // -----------------------------
