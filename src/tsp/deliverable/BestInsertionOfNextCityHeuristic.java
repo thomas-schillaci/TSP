@@ -11,29 +11,41 @@ import tsp.heuristic.AHeuristic;
  * It is a greddy algorithm.
  */
 
-public class BestInsertion extends AHeuristic{
-	public BestInsertion(Instance instance) throws Exception {
-		super(instance, "best insertion");
+public class BestInsertionOfNextCityHeuristic extends AHeuristic{
+	public BestInsertionOfNextCityHeuristic(Instance instance) throws Exception {
+		super(instance, "best insertion of next city");
 	}
 
 	@Override
 	public void solve() throws Exception {
 		ArrayList<Integer> used=new ArrayList<Integer>(0);
 		Solution solution=new Solution(m_instance);
-		int firstCity=1;
+		int firstCity=0;									// we start with the two first cities and insert all the next ones
 		used.add(firstCity);
 		solution.setCityPosition(firstCity, 0);
 		solution.setCityPosition(firstCity,  m_instance.getNbCities());
 		int secondCity=firstCity+1;
 		used.add(secondCity);
-		solution.setCityPosition(secondCity, 1);
-		for(int i=3;i<m_instance.getNbCities();i++) {
-			solution.setCityPosition(bestInsertion(i,used), i);
+		for(int i=2;i<m_instance.getNbCities();i++) {
+			used.add(used.get(used.size()-1));
+			for (int j=used.size()-1;j>bestInsertion(i,used);j--) {
+				used.set(j, used.get(j-1));
+			}
+		}
+		for (int k=1;k<m_instance.getNbCities();k++) {
+			solution.setCityPosition(used.get(k), k);
 		}
 		m_solution=solution;
 		m_solution.evaluate();
 	}
 	
+/**
+ * Finds the best position to insert the city city in the List of cities that are already placed.
+ * @param city
+ * @param used
+ * @return
+ * @throws Exception
+ */
 
 	public int bestInsertion(int city, ArrayList<Integer> used) throws Exception {
 		long addedLength=m_instance.getDistances(used.get(0),city)+m_instance.getDistances(city,used.get(1))-m_instance.getDistances(used.get(0),used.get(1));
@@ -43,10 +55,6 @@ public class BestInsertion extends AHeuristic{
 				addedLength=m_instance.getDistances(used.get(i),city)+m_instance.getDistances(city,used.get(i+1))-m_instance.getDistances(used.get(i),used.get(i+1));
 				bestInsertion=i+1;
 			}
-		}
-		used.add(used.get(used.size()));
-		for (int j=used.size()-1;j>bestInsertion;j--) {
-			used.set(j, used.get(j-1));
 		}
 		return bestInsertion;
 	}
