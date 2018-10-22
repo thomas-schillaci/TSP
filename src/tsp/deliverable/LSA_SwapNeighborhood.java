@@ -27,9 +27,10 @@ public class LSA_SwapNeighborhood extends ANeighborhood {
 		// TODO Auto-generated method stub
 		List<Solution> solutions = new ArrayList<Solution>();
 		for(int i=1;i<super.m_instance.getNbCities()-1;i++) {
-			for(int j=1; j<super.m_instance.getNbCities()-1;j++) {
-				if(i!=j) solutions.add( swap(i,j,sol) ); 
-			}
+//			for(int j=1; j<super.m_instance.getNbCities()-1;j++) {
+//				if(i!=j) solutions.add( swap(i,j,sol) ); 
+//			}
+			solutions.add(swap(i,super.m_instance.getNbCities()-1,sol));
 		}
 		return solutions;
 	}
