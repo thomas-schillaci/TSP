@@ -18,23 +18,19 @@ public class BestInsertionOfNextCityHeuristic extends AHeuristic{
 
 	@Override
 	public void solve() throws Exception {
-		ArrayList<Integer> used=new ArrayList<Integer>(0);
+		ArrayList<Integer> used=new ArrayList<Integer>();
 		Solution solution=new Solution(m_instance);
 		int firstCity=0;									// we start with the two first cities and insert all the next ones
 		used.add(firstCity);
-		solution.setCityPosition(firstCity, 0);
-		solution.setCityPosition(firstCity,  m_instance.getNbCities());
 		int secondCity=firstCity+1;
 		used.add(secondCity);
 		for(int i=2;i<m_instance.getNbCities();i++) {
-			used.add(used.get(used.size()-1));
-			for (int j=used.size()-1;j>bestInsertion(i,used);j--) {
-				used.set(j, used.get(j-1));
-			}
+			used.add(bestInsertion(i,used), i);
 		}
-		for (int k=1;k<m_instance.getNbCities();k++) {
+		for (int k=0;k<m_instance.getNbCities();k++) {
 			solution.setCityPosition(used.get(k), k);
 		}
+		solution.setCityPosition(used.get(0), m_instance.getNbCities());
 		m_solution=solution;
 		m_solution.evaluate();
 	}
@@ -50,7 +46,7 @@ public class BestInsertionOfNextCityHeuristic extends AHeuristic{
 	public int bestInsertion(int city, ArrayList<Integer> used) throws Exception {
 		long addedLength=m_instance.getDistances(used.get(0),city)+m_instance.getDistances(city,used.get(1))-m_instance.getDistances(used.get(0),used.get(1));
 		int bestInsertion=1;
-		for (int i=0;i<used.size()-1;i++) {
+		for (int i=1;i<used.size()-1;i++) {
 			if(addedLength>m_instance.getDistances(used.get(i),city)+m_instance.getDistances(city,used.get(i+1))-m_instance.getDistances(used.get(i),used.get(i+1))) {
 				addedLength=m_instance.getDistances(used.get(i),city)+m_instance.getDistances(city,used.get(i+1))-m_instance.getDistances(used.get(i),used.get(i+1));
 				bestInsertion=i+1;
@@ -58,4 +54,5 @@ public class BestInsertionOfNextCityHeuristic extends AHeuristic{
 		}
 		return bestInsertion;
 	}
+
 }

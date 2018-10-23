@@ -1,8 +1,10 @@
 package tsp;
 
+import tsp.deliverable.BestInsertionHeuristic;
+import tsp.deliverable.BestInsertionOfNextCityHeuristic;
 import tsp.deliverable.BruteForceHeuristic;
 import tsp.deliverable.GeneticHeuristic;
-import tsp.deliverable.NearestNeighbor;
+import tsp.deliverable.NearestNeighborHeuristic;
 import tsp.heuristic.AHeuristic;
 
 /**
@@ -76,9 +78,8 @@ public class TSPSolver {
      * @throws Exception may return some error, in particular if some vertices index are wrong.
      */
     public void solve() throws Exception {
-        long startTime = System.currentTimeMillis();
 
-        AHeuristic bestInsertion=new NearestNeighbor(m_instance);
+        AHeuristic bestInsertion=new BestInsertionHeuristic(m_instance);
         bestInsertion.solve();
 
 
