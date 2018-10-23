@@ -30,7 +30,6 @@ public class BestInsertionOfNextCityHeuristic extends AHeuristic{
 		for (int k=0;k<m_instance.getNbCities();k++) {
 			solution.setCityPosition(used.get(k), k);
 		}
-		solution.setCityPosition(used.get(0), 0);
 		solution.setCityPosition(used.get(0), m_instance.getNbCities());
 		m_solution=solution;
 		m_solution.evaluate();
