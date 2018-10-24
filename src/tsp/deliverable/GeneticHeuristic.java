@@ -25,17 +25,20 @@ public class GeneticHeuristic extends AHeuristic {
 
     private Solution[] chromosomes;
     private long lastObjectiveValue = -1;
+    private float meanDistance=0;
 
-    public GeneticHeuristic(Instance m_instance) throws Exception {
+    public GeneticHeuristic(AHeuristic startingHeuristic, Instance m_instance) throws Exception {
         super(m_instance, "Genetic Heuristic");
         chromosomes = new Solution[POPULATION];
         for (int i = 0; i < POPULATION; i++) {
-            AHeuristic heuristic = new RandomHeuristic(m_instance);
-            heuristic.solve();
-            chromosomes[i] = heuristic.getSolution();
+            startingHeuristic.solve();
+            chromosomes[i] = startingHeuristic.getSolution();
         }
         evaluate();
         swathLength = m_instance.getNbCities() / 2;
+        for (int i = 0; i < m_instance.getNbCities(); i++)
+            for (int j = 0; j < m_instance.getNbCities(); j++)
+                meanDistance += (float) m_instance.getDistances(i, j) / m_instance.getNbCities() / m_instance.getNbCities();
     }
 
     /**
@@ -69,13 +72,12 @@ public class GeneticHeuristic extends AHeuristic {
         Solution[] newGeneration = new Solution[POPULATION];
         newGeneration[0] = best.copy();
         for (int i = 1; i < newGeneration.length; i++)
-            newGeneration[i] = (Math.random()<0.01f?directCopy(newGeneration, totalScore):pmx(newGeneration,totalScore));
-//            newGeneration[i] = pmx(newGeneration, totalScore);
+            newGeneration[i] = directCopy(totalScore);
 
         chromosomes = newGeneration;
     }
 
-    private Solution directCopy(Solution[] newGeneration, float totalScore) {
+    private Solution directCopy(float totalScore) {
         int index = (int) (Math.random() * totalScore);
         float count = 0;
         for (Solution chromosome : chromosomes) {
@@ -85,7 +87,7 @@ public class GeneticHeuristic extends AHeuristic {
         return null;
     }
 
-    private Solution pmx(Solution[] newGeneration, float totalScore) {
+    private Solution pmx(float totalScore) {
         int index = (int) (Math.random() * totalScore);
         int i1 = -1, i2;
         float count = 0;
@@ -163,25 +165,32 @@ public class GeneticHeuristic extends AHeuristic {
             Solution chromosome = chromosomes[j];
             for (int i = 0; i < m_instance.getNbCities() - 1; i++) {
                 if (Math.random() > MUTATION_RATE) continue;
-                mutate(chromosome, i);
+                int other = (int) (Math.random() * chromosome.getInstance().getNbCities());
+                if (other == i) other = (other + 1) % chromosome.getInstance().getNbCities();
+                chromosomes[j] = twoOpt(i,other,chromosome);
             }
         }
     }
 
-    /**
-     * Switches the index-th gene with another gene within the chromosome
-     */
-    private void mutate(Solution chromosome, int index) {
-        int other = (int) (Math.random() * chromosome.getInstance().getNbCities());
-        if (other == index) other = (other + 1) % chromosome.getInstance().getNbCities();
-
+    private Solution swap(int i, int j, Solution chromosome) {
         try {
-            int tmp = chromosome.getCity(index);
-            chromosome.setCityPosition(chromosome.getCity(other), index);
-            chromosome.setCityPosition(tmp, other);
+            int tmp = chromosome.getCity(i);
+            chromosome.setCityPosition(chromosome.getCity(j), i);
+            chromosome.setCityPosition(tmp, j);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return chromosome;
+    }
+
+    private Solution twoOpt(int i, int j, Solution chromosome) {
+        Solution copy = chromosome.copy();
+        try {
+            for(int k=i;k<=j;k++) copy.setCityPosition(chromosome.getCity(j - k + i), k);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return copy;
     }
 
     /**
@@ -211,7 +220,7 @@ public class GeneticHeuristic extends AHeuristic {
      * The higher the score, the better
      */
     private double getScore(Solution chromosome) {
-        double score = Math.pow(m_instance.getNbCities() * m_instance.getNbCities() * 60.0f / chromosome.getObjectiveValue(), 4);
+        double score = Math.pow(meanDistance * 100.0f / chromosome.getObjectiveValue(), 4);
         return score;
     }
 
