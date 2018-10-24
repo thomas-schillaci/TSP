@@ -28,6 +28,17 @@ public class LocalSearchHeuristic extends AHeuristic {
 		stop = 0;
 		// TODO Auto-generated constructor stub
 	}
+	
+	public LocalSearchHeuristic(Instance instance,Solution sol) throws Exception {
+		super(instance, "Local Search");
+		neighbors1=new LSA_SwapNeighborhood(instance, "neighbors");
+		neighbors2=new LSA_2optNeighborhood(instance, "neighbors");
+		neighbors3=new LSA_ShiftNeighborhood(instance, "neighbors");
+		methodChange = 0;
+		stop = 0;
+		setBestEver(sol);
+		setCurrentBest(sol);
+	}
 
 	public Solution getSolution() {
 		return bestEver;
@@ -37,7 +48,7 @@ public class LocalSearchHeuristic extends AHeuristic {
 		this.bestEver = bestEver;
 	}
 	
-	public void setCurrentEver(Solution currentBest) {
+	public void setCurrentBest(Solution currentBest) {
 		this.currentBest = currentBest;
 	}
 	
