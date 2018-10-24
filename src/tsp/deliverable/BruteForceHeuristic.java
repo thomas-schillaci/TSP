@@ -7,6 +7,11 @@ import tsp.heuristic.AHeuristic;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The Brute force heuristic
+ * Tests every path possible but only can be used with instances with nbCities <=10
+ * Always returns the smallest objective value possible
+ */
 public class BruteForceHeuristic extends AHeuristic {
 
     public BruteForceHeuristic(Instance instance) throws Exception {
@@ -15,7 +20,7 @@ public class BruteForceHeuristic extends AHeuristic {
 
     @Override
     public void solve() throws Exception {
-        if(fact(m_instance.getNbCities())<0) throw new Exception("Too many cities to evaluate by brute force");
+        if(m_instance.getNbCities()>10) throw new Exception("Too many cities to solve by brute force");
         m_solution.setObjectiveValue(Long.MAX_VALUE);
 
         for (int[] ints : heap(m_instance.getNbCities())) {
@@ -27,6 +32,10 @@ public class BruteForceHeuristic extends AHeuristic {
         }
     }
 
+    /**
+     * The heap algorithm
+     * Generates an ArrayList of every permutation from the symmetric group of size size
+     */
     private ArrayList<int[]> heap(int size) {
         int[] a = new int[size];
         for (int i = 0; i < size; i++) a[i] = i;
@@ -50,12 +59,6 @@ public class BruteForceHeuristic extends AHeuristic {
                 a[size-1]=tmp;
             }
         }
-    }
-
-    private int fact(int n) {
-        int res=1;
-        for (int i = 2; i <= n; i++) res *= i;
-        return res;
     }
 
 }
