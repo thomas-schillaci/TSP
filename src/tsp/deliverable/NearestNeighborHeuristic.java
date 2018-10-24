@@ -13,9 +13,9 @@ import tsp.heuristic.AHeuristic;
  * @author Charles
  *
  */
-public class NearestNeighbor extends AHeuristic{
+public class NearestNeighborHeuristic extends AHeuristic{
 
-	public NearestNeighbor(Instance instance) throws Exception {
+	public NearestNeighborHeuristic(Instance instance) throws Exception {
 		super(instance, "nearest neighbor");
 	}
 
@@ -26,7 +26,7 @@ public class NearestNeighbor extends AHeuristic{
 			unused.add(j);									//at first, evey city is yet to be visited
 		}
 		Solution solution=new Solution(m_instance);
-		int firstCity=(int)(Math.random()*m_instance.getNbCities());	//choose the first city randomly
+		int firstCity=(int)(Math.random()*m_instance.getNbCities());	//we choose the first city randomly
 		solution.setCityPosition(firstCity, 0);
 		solution.setCityPosition(firstCity, m_instance.getNbCities());
 		unused.remove(firstCity);							
