@@ -4,6 +4,10 @@ import tsp.Instance;
 import tsp.Solution;
 import tsp.heuristic.AHeuristic;
 
+/**
+ * A dumb heuristic setting the city of index i at the i-th position
+ * Used to test other heuristics
+ */
 public class DumbHeuristic extends AHeuristic {
 
     public DumbHeuristic(Instance instance) throws Exception {
