@@ -1,6 +1,8 @@
 package tsp;
 
-import tsp.deliverable.*;
+import tsp.deliverable.BruteForceHeuristic;
+import tsp.deliverable.GeneticHeuristic;
+import tsp.deliverable.NearestNeighbor;
 import tsp.heuristic.AHeuristic;
 
 /**
@@ -76,13 +78,19 @@ public class TSPSolver {
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
 
-        AHeuristic heuristic = new GeneticHeuristic(new DumbHeuristic(m_instance), m_instance);
+<<<<<<< Updated upstream
+        AHeuristic bestInsertion=new NearestNeighbor(m_instance);
+        bestInsertion.solve();
+=======
+        AHeuristic heuristic = new GeneticHeuristic(new BestInsertionHeuristic(m_instance), m_instance);
         while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) {
             heuristic.solve();
             System.out.println(((GeneticHeuristic) heuristic).getLastObjectiveValue());
         }
+>>>>>>> Stashed changes
 
-        m_solution = heuristic.getSolution();
+
+        m_solution = bestInsertion.getSolution();
     }
 
     // -----------------------------
