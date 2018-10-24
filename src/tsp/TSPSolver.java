@@ -74,9 +74,12 @@ public class TSPSolver {
      * @throws Exception may return some error, in particular if some vertices index are wrong.
      */
     public void solve() throws Exception {
+        long startTime = System.currentTimeMillis();
+
         AHeuristic heuristic = new AntHeuristic(m_instance);
         while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) {
             heuristic.solve();
+            System.out.println(((AntHeuristic) heuristic).getLastObjectiveValue());
         }
 
         m_solution = heuristic.getSolution();

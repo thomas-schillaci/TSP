@@ -11,9 +11,10 @@ import java.util.List;
 
 public class AntHeuristic extends AHeuristic {
 
-    private final int POPULATION = 10;
-    private final float ALPHA=1.0f,BETA=1.0f,GAMMA=1.0f,Q=1.0f, RHO=0.25f;
+    private final int POPULATION = 1000;
+    private final float ALPHA=4.0f,BETA=0.9f,GAMMA=1.0f,Q=100.0f, RHO=0.2f;
     private float[][] intensities;
+    private long lastObjectiveValue=-1;
 
     public AntHeuristic(Instance instance) throws Exception {
         super(instance, "Ant Heuristic");
@@ -84,6 +85,12 @@ public class AntHeuristic extends AHeuristic {
         m_solution = ants[0];
         for (int i = 1; i < ants.length; i++)
             if (ants[i].getObjectiveValue() < m_solution.getObjectiveValue()) m_solution = ants[i];
+
+        lastObjectiveValue = m_solution.getObjectiveValue();
+    }
+
+    public long getLastObjectiveValue() {
+        return lastObjectiveValue;
     }
 
 }
