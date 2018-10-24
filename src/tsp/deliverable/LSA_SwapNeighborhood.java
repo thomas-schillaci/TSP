@@ -20,22 +20,22 @@ public class LSA_SwapNeighborhood extends ANeighborhood {
 
 	@Override
 	/**
-	 * @return Generates the list of neighbors of the Solution sol with the swapping method
+	 * @return Generates the list of neighbors of the Solution sol by swapping the last city of the path with the others
 	 * 
 	 * */
 	public List<Solution> getNeighborhood(Solution sol) throws Exception {
 		// TODO Auto-generated method stub
 		List<Solution> solutions = new ArrayList<Solution>();
+		Solution swap;
 		for(int i=1;i<super.m_instance.getNbCities()-1;i++) {
-			for(int j=1; j<super.m_instance.getNbCities()-1;j++) {
-				if(i!=j) solutions.add( swap(i,j,sol) ); 
-			}
+			swap = swap(i,super.m_instance.getNbCities()-1,sol);
+			if (swap.getObjectiveValue()<sol.getObjectiveValue()) solutions.add(swap);
 		}
 		return solutions;
 	}
 	
 /**
- * @return Creates a new solution where we have switched the index i with the index j in the Solution sol
+ * @return Creates a new solution where the index i with the index j in the Solution sol are switched
  *  
  */
 	public Solution swap(int i, int j, Solution sol) {
