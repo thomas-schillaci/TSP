@@ -39,9 +39,3 @@
 - nearest neighbor
 - Branch and bound (40-60 cities)
 - V-opt heuristics
-
-## What is effective
-- Nearest Neighbor for all sizes | real quick and effective considering its speed - one shot
-- Local Search with varying neighborhoods (2-opt, swap, shift...) for n <=200 | quality of solutions and speed - incremental
-- Brute Force for small iterations ~10 | finds the optimum
-- Genetic Heuristic with varying reproductions (direct, pmx) for all sizes | always decreases the objective value
