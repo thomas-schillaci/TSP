@@ -6,6 +6,10 @@ import tsp.heuristic.AHeuristic;
 
 import java.util.ArrayList;
 
+/**
+ * Creates a random solution
+ * Used to test the other heuristics
+ */
 public class RandomHeuristic extends AHeuristic {
 
     public RandomHeuristic(Instance instance) throws Exception {

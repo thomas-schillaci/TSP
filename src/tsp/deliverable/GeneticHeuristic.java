@@ -14,8 +14,6 @@ import java.util.HashMap;
  * and call the solve function as much as possible within the m_timeLimit time span
  * POPULATION stores the number of solutions calculated within one solve call
  * MUTATION_RATE represents the probability for a gene to undergo the mutate function
- *
- * @author thomas-schillaci
  */
 public class GeneticHeuristic extends AHeuristic {
 
@@ -26,6 +24,17 @@ public class GeneticHeuristic extends AHeuristic {
     private Solution[] chromosomes;
     private long lastObjectiveValue = -1;
     private float meanDistance=0;
+
+    public GeneticHeuristic(Solution solution, Instance m_instance) throws Exception {
+        this(new AHeuristic(m_instance,"") {
+            @Override
+            public void solve() throws Exception {}
+            @Override
+            public Solution getSolution() {
+                return solution;
+            }
+        },m_instance);
+    }
 
     public GeneticHeuristic(AHeuristic startingHeuristic, Instance m_instance) throws Exception {
         super(m_instance, "Genetic Heuristic");
@@ -77,6 +86,9 @@ public class GeneticHeuristic extends AHeuristic {
         chromosomes = newGeneration;
     }
 
+    /**
+     * Selects *randomly* a father (considering its weight) and sets it as the child
+     */
     private Solution directCopy(float totalScore) {
         int index = (int) (Math.random() * totalScore);
         float count = 0;
@@ -87,6 +99,10 @@ public class GeneticHeuristic extends AHeuristic {
         return null;
     }
 
+    /**
+     * The PMX method
+     * Can be used instead of directCopy
+     */
     private Solution pmx(float totalScore) {
         int index = (int) (Math.random() * totalScore);
         int i1 = -1, i2;
@@ -172,6 +188,9 @@ public class GeneticHeuristic extends AHeuristic {
         }
     }
 
+    /**
+     * Swaps the i-th and the j-th genes
+     */
     private Solution swap(int i, int j, Solution chromosome) {
         try {
             int tmp = chromosome.getCity(i);
@@ -183,6 +202,10 @@ public class GeneticHeuristic extends AHeuristic {
         return chromosome;
     }
 
+    /**
+     * The 2-opt method
+     * Can be used instead of swap
+     */
     private Solution twoOpt(int i, int j, Solution chromosome) {
         Solution copy = chromosome.copy();
         try {
@@ -205,6 +228,9 @@ public class GeneticHeuristic extends AHeuristic {
         }
     }
 
+    /**
+     * Evaluates each solution
+     */
     private void evaluate() {
         for (Solution chromosome : chromosomes) {
             try {
