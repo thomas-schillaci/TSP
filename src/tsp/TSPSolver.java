@@ -79,7 +79,7 @@ public class TSPSolver {
      */
     public void solve() throws Exception {
 
-        AHeuristic BI=new BestInsertionHeuristic(m_instance);
+        AHeuristic BI=new NearestNeighborHeuristic(m_instance);
         BI.solve();
 
 

@@ -36,16 +36,11 @@ public class BestInsertionHeuristic extends AHeuristic {
 																	// second city
 		used.add(secondCity);
 		unused.remove(unused.indexOf(secondCity));
-		// System.out.println(unused);
-		System.out.println(used);
 
 		for (int i = 3; i < m_instance.getNbCities() + 1; i++) {
 			int[] bestInsertion = bestInsertion(used, unused);
 			used.add(bestInsertion[1], bestInsertion[0]);
 			unused.remove(unused.indexOf(bestInsertion[0]));
-			// System.out.println(bestInsertion[0]);
-			// System.out.println(unused);
-			// System.out.println(used);
 		}
 		for (int k = 0; k < m_instance.getNbCities(); k++) {
 			solution.setCityPosition(used.get(k), k);
@@ -61,30 +56,23 @@ public class BestInsertionHeuristic extends AHeuristic {
 		long addedLength = m_instance.getDistances(used.get(0), unused.get(0))
 				+ m_instance.getDistances(unused.get(0), used.get(1))
 				- m_instance.getDistances(used.get(0), used.get(1));
-		System.out.println(addedLength);
 		for (int unusedCity : unused) {
 			if (addedLength > m_instance.getDistances(used.get(used.size() - 1), unusedCity)
-					+ m_instance.getDistances(unusedCity, 0) - m_instance.getDistances(used.get(used.size() - 1), 0)) {
+					+ m_instance.getDistances(unusedCity, used.get(0)) - m_instance.getDistances(used.get(used.size() - 1), used.get(0))) {
 				city = unusedCity;
 				position = used.size();
 			}
 			for (int i = 0; i < used.size() - 1; i++) {
-				System.out.println(m_instance.getDistances(i, unusedCity) + m_instance.getDistances(unusedCity, i + 1)
-						- m_instance.getDistances(i, i + 1));
-				if (addedLength > m_instance.getDistances(i, unusedCity) + m_instance.getDistances(unusedCity, i + 1)
-						- m_instance.getDistances(i, i + 1)) {
-					addedLength = m_instance.getDistances(i, unusedCity) + m_instance.getDistances(unusedCity, i + 1)
-							- m_instance.getDistances(i, i + 1);
+				if (addedLength > m_instance.getDistances(used.get(i), unusedCity) + m_instance.getDistances(unusedCity, used.get(i+1))
+						- m_instance.getDistances(used.get(i), used.get(i+1))) {
+					addedLength = m_instance.getDistances(used.get(i), unusedCity) + m_instance.getDistances(unusedCity, used.get(i+1))
+							- m_instance.getDistances(used.get(i), used.get(i+1));
 					city = unusedCity;
 					position = i + 1;
 				}
 			}
 		}
 		int[] bestInsertion = { city, position };
-		System.out.println("   ");
-		System.out.println(addedLength);
-		System.out.println(city);
-		System.out.println("   ");
 		return bestInsertion;
 	}
 
@@ -103,4 +91,4 @@ public class BestInsertionHeuristic extends AHeuristic {
 	}
 }
 
-
+// giovanni.lo-bianco@imt-atlantique.fr
