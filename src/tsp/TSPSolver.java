@@ -76,6 +76,7 @@ public class TSPSolver {
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
 
+
         AHeuristic heuristic = new AntHeuristic(m_instance);
         while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) {
             heuristic.solve();
