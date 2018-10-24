@@ -29,7 +29,7 @@ public class LSA_SwapNeighborhood extends ANeighborhood {
 		Solution swap;
 		for(int i=1;i<super.m_instance.getNbCities()-1;i++) {
 			swap = swap(i,super.m_instance.getNbCities()-1,sol);
-			if (swap.getObjectiveValue()<sol.getObjectiveValue()) solutions.add(swap);
+			if (swap.getObjectiveValue()<=sol.getObjectiveValue()) solutions.add(swap);
 		}
 		return solutions;
 	}

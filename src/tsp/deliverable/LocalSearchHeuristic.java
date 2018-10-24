@@ -59,6 +59,7 @@ public class LocalSearchHeuristic extends AHeuristic {
 	@Override
 	public void solve() throws Exception {
 		// TODO Auto-generated method stub
+		while(!isStopped()) {
 		switch (methodChange%3) {
 		//The program starts with the 2-opt local search as it is fast and efficient
 		case 0:
@@ -82,6 +83,7 @@ public class LocalSearchHeuristic extends AHeuristic {
 			if(currentBest.evaluate()<bestEver.evaluate()) {bestEver=currentBest;stop=0;}
 			else {methodChange++;stop++;}
 			break;
+		}
 		}
 	}
 
