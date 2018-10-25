@@ -91,4 +91,3 @@ public class BestInsertionHeuristic extends AHeuristic {
 	}
 }
 
-// giovanni.lo-bianco@imt-atlantique.fr
