@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class GeneticHeuristic extends AHeuristic {
 
     private final int POPULATION = 800;
-    private final float MUTATION_RATE = 0.001f;
+    private final float MUTATION_RATE = 0.1f;
     private int swathLength;
 
     private Solution[] chromosomes;
@@ -36,10 +36,10 @@ public class GeneticHeuristic extends AHeuristic {
         },m_instance);
     }
 
-    public GeneticHeuristic(AHeuristic startingHeuristic, Instance m_instance) throws Exception {
+    private GeneticHeuristic(AHeuristic startingHeuristic, Instance m_instance) throws Exception {
         super(m_instance, "Genetic Heuristic");
         chromosomes = new Solution[POPULATION];
-        for (int i = 0; i < POPULATION; i++) {
+        for (int i = 0; i < chromosomes.length; i++) {
             startingHeuristic.solve();
             chromosomes[i] = startingHeuristic.getSolution();
         }
@@ -179,7 +179,7 @@ public class GeneticHeuristic extends AHeuristic {
     private void mutation() {
         for (int j = 1; j < chromosomes.length; j++) {
             Solution chromosome = chromosomes[j];
-            for (int i = 0; i < m_instance.getNbCities() - 1; i++) {
+            for (int i = 0; i < m_instance.getNbCities()-1; i++) {
                 if (Math.random() > MUTATION_RATE) continue;
                 int other = (int) (Math.random() * chromosome.getInstance().getNbCities());
                 if (other == i) other = (other + 1) % chromosome.getInstance().getNbCities();
