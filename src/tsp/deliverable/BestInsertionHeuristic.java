@@ -22,18 +22,16 @@ public class BestInsertionHeuristic extends AHeuristic {
 
 	@Override
 	public void solve() throws Exception {
-		ArrayList<Integer> used = new ArrayList<Integer>(); // used is the list of city already visited, at first it is
-															// empty
-		ArrayList<Integer> unused = new ArrayList<>(); // unused is the list of cities yet to visit
+		ArrayList<Integer> used = new ArrayList<Integer>(); 	// used is the list of city already visited, at first it is empty
+		ArrayList<Integer> unused = new ArrayList<>(); 			// unused is the list of cities yet to visit
 		for (int j = 0; j < m_instance.getNbCities(); j++) {
-			unused.add(j); // at first, every city is yet to be visited
+			unused.add(j); 										// at first, every city is yet to be visited
 		}
 		Solution solution = new Solution(m_instance);
-		int firstCity = (int) (Math.random() * m_instance.getNbCities()); // choose the first city randomly
+		int firstCity = (int) (Math.random() * m_instance.getNbCities()); // we choose the first city randomly
 		used.add(firstCity);
 		unused.remove(firstCity);
-		int secondCity = findNearestNeighbor(firstCity, unused); // we choose the nearest city to the first one as
-																	// second city
+		int secondCity = findNearestNeighbor(firstCity, unused); 	// we choose the nearest city to the first one as secon city
 		used.add(secondCity);
 		unused.remove(unused.indexOf(secondCity));
 
@@ -49,14 +47,20 @@ public class BestInsertionHeuristic extends AHeuristic {
 		m_solution = solution;
 		m_solution.evaluate();
 	}
-
+/**
+ * 
+ * @param used cities visited
+ * @param unused cities yet to visit
+ * @return city best city to visit and position the position where we insert city
+ * @throws Exception
+ */
 	public int[] bestInsertion(ArrayList<Integer> used, ArrayList<Integer> unused) throws Exception {
 		int city = unused.get(0);
 		int position = 1;
 		long addedLength = m_instance.getDistances(used.get(0), unused.get(0))
 				+ m_instance.getDistances(unused.get(0), used.get(1))
 				- m_instance.getDistances(used.get(0), used.get(1));
-		for (int unusedCity : unused) {
+		for (int unusedCity : unused) {			
 			if (addedLength > m_instance.getDistances(used.get(used.size() - 1), unusedCity)
 					+ m_instance.getDistances(unusedCity, used.get(0)) - m_instance.getDistances(used.get(used.size() - 1), used.get(0))) {
 				city = unusedCity;
@@ -76,6 +80,12 @@ public class BestInsertionHeuristic extends AHeuristic {
 		return bestInsertion;
 	}
 
+	/**
+	 * 
+	 * @param city 
+	 * @param citiesToVisit 
+	 * @return the nearest city of city within the cities yet to be visited
+	 */
 	public int findNearestNeighbor(int city, ArrayList<Integer> citiesToVisit) {
 		int nearest = citiesToVisit.get(0);
 		for (int candidate : citiesToVisit) {
