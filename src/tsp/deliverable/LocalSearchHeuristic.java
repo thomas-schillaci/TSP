@@ -44,7 +44,7 @@ public class LocalSearchHeuristic extends AHeuristic {
 		setBestEver(sol);
 		setCurrentBest(sol);
 	}
-	
+
 	public Solution getSolution() {
 		return bestEver;
 	}

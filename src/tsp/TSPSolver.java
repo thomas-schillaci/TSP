@@ -1,5 +1,6 @@
 package tsp;
 
+
 import tsp.deliverable.*;
 import tsp.heuristic.AHeuristic;
 
@@ -60,26 +61,44 @@ public class TSPSolver {
     // -----------------------------
 
     /**
-     * **TODO** Modify this method to solve the problem.
-     * <p>
-     * Do not print text on the standard output (eg. using `System.out.print()` or `System.out.println()`).
-     * This output is dedicated to the result analyzer that will be used to evaluate your code on multiple instances.
-     * <p>
-     * You can print using the error output (`System.err.print()` or `System.err.println()`).
-     * <p>
-     * When your algorithm terminates, make sure the attribute #m_solution in this class points to the solution you want to return.
-     * <p>
-     * You have to make sure that your algorithm does not take more time than the time limit #m_timeLimit.
-     *
-     * @throws Exception may return some error, in particular if some vertices index are wrong.
+     * Solves the problem by:
+     * Choosing a starting heuristic with regards of the problem's size
+     * For small problems (n<=72), uses a BestInsertionHeuristic
+     * For large problems (n>72), uses the best of 1000 NearestNeighborsHeuristic
+     * Then passes the starting heuristic through the LocalSearchHeuristic to obtain a solution
+     * Then tries to decrease the objective value by passing the solution through the GeneticHeuristic
      */
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
 
-        AHeuristic heuristic = new GeneticHeuristic(new BestInsertionOfNextCityHeuristic(m_instance), m_instance);
-        while (System.currentTimeMillis() - startTime < m_timeLimit * 1000) {
+        AHeuristic startingHeuristic;
+        if(m_instance.getNbCities()>72) {
+            AHeuristic[] startingHeuristics = new AHeuristic[1000];
+            for (int i = 0; i < startingHeuristics.length; i++) {
+                startingHeuristics[i] = new NearestNeighborHeuristic(m_instance);
+                startingHeuristics[i].solve();
+            }
+            startingHeuristic = startingHeuristics[0];
+            for (int i = 1; i < startingHeuristics.length; i++)
+                if (startingHeuristics[i].getSolution().getObjectiveValue() < startingHeuristic.getSolution().getObjectiveValue())
+                    startingHeuristic = startingHeuristics[i];
+        }
+        else {
+            startingHeuristic = new BestInsertionHeuristic(m_instance);
+            startingHeuristic.solve();
+        }
+
+        AHeuristic heuristic = new LocalSearchHeuristic(m_instance, startingHeuristic.getSolution());
+        heuristic.solve();
+
+        heuristic = new GeneticHeuristic(heuristic.getSolution(), m_instance);
+        long maxElapsedTime=-1;
+        long now = System.currentTimeMillis();
+        while (now - startTime < m_timeLimit * 1000 - 5*maxElapsedTime) {
+            long start = System.currentTimeMillis();
             heuristic.solve();
-            System.out.println(((GeneticHeuristic) heuristic).getLastObjectiveValue());
+            now = System.currentTimeMillis();
+            if(now-start>maxElapsedTime)maxElapsedTime=now-start;
         }
 
         m_solution = heuristic.getSolution();
