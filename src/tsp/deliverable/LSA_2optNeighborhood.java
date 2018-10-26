@@ -9,7 +9,7 @@ import tsp.neighborhood.ANeighborhood;
 /**
  * 
  * @author leovu
- *
+ * The main idea behind the 2-opt method is to take a route that crosses over itself and reorder it so that it does not.
  */
 public class LSA_2optNeighborhood extends ANeighborhood{
 
@@ -20,8 +20,9 @@ public class LSA_2optNeighborhood extends ANeighborhood{
 
 	@Override
 	/**
+	 * @param Solution sol : the initial solution
 	 * @return Generates the list of neighbors of the Solution sol with the 2-opt method
-	 * 
+	 * @throws Exceptions
 	 * */
 	public List<Solution> getNeighborhood(Solution sol) throws Exception {
 		// TODO Auto-generated method stub
@@ -39,8 +40,8 @@ public class LSA_2optNeighborhood extends ANeighborhood{
 	}
 	
 	/**
-	 * @return Creates a new solution where we have inverted the order of the cities between 
-	 * the index i and the index j (including i and j) in the Solution sol
+	 * @param int i, int j, Solution sol
+	 * @return Creates a new solution where we have switched the index i with the index j in the Solution sol
 	 *  
 	 */
 		public Solution twoOptSwap(int i, int j, Solution sol) {
