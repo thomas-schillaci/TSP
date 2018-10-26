@@ -78,7 +78,7 @@ public class TSPSolver {
         long startTime = System.currentTimeMillis();
 
         AHeuristic startingHeuristic;
-        if(m_instance.getNbCities()>67) {
+        if(m_instance.getNbCities()>72) {
             AHeuristic[] startingHeuristics = new AHeuristic[1000];
             for (int i = 0; i < startingHeuristics.length; i++) {
                 startingHeuristics[i] = new NearestNeighborHeuristic(m_instance);
@@ -100,7 +100,7 @@ public class TSPSolver {
         heuristic = new GeneticHeuristic(heuristic.getSolution(), m_instance);
         long maxElapsedTime=-1;
         long now = System.currentTimeMillis();
-        while (now - startTime < m_timeLimit * 1000 - 10*maxElapsedTime) {
+        while (now - startTime < m_timeLimit * 1000 - 5*maxElapsedTime) {
             long start = System.currentTimeMillis();
             heuristic.solve();
             now = System.currentTimeMillis();
