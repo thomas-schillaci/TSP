@@ -31,7 +31,7 @@ public class BestInsertionHeuristic extends AHeuristic {
 				unused.add(j); // at first, every city is yet to be visited
 			}
 			Solution solution = new Solution(m_instance);
-			int firstCity = m; // choose the first city randomly
+			int firstCity = m; 
 			used.add(firstCity);
 			unused.remove(firstCity);
 			int secondCity = findNearestNeighbor(firstCity, unused); // we choose the nearest city to the first one as
