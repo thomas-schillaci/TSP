@@ -64,4 +64,4 @@ public class LSA_ShiftNeighborhood extends ANeighborhood {
 	}
 
 }
-}
+
