@@ -5,6 +5,7 @@ import tsp.Solution;
 import tsp.heuristic.AHeuristic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -25,24 +26,13 @@ public class GeneticHeuristic extends AHeuristic {
     private long lastObjectiveValue = -1;
     private float meanDistance=0;
 
+    /**
+     * Initializes each chromosome as a copy of the solution
+     */
     public GeneticHeuristic(Solution solution, Instance m_instance) throws Exception {
-        this(new AHeuristic(m_instance,"") {
-            @Override
-            public void solve() throws Exception {}
-            @Override
-            public Solution getSolution() {
-                return solution;
-            }
-        },m_instance);
-    }
-
-    private GeneticHeuristic(AHeuristic startingHeuristic, Instance m_instance) throws Exception {
         super(m_instance, "Genetic Heuristic");
         chromosomes = new Solution[POPULATION];
-        for (int i = 0; i < chromosomes.length; i++) {
-            startingHeuristic.solve();
-            chromosomes[i] = startingHeuristic.getSolution();
-        }
+        for (int i = 0; i < chromosomes.length; i++) chromosomes[i] = solution.copy();
         evaluate();
         swathLength = m_instance.getNbCities() / 2;
         for (int i = 0; i < m_instance.getNbCities(); i++)
@@ -52,8 +42,7 @@ public class GeneticHeuristic extends AHeuristic {
 
     /**
      * Generates a new generation
-     *
-     * @return the best solution from the new generation
+     * Sets m_solution as the best solution of the generation
      */
     @Override
     public void solve() {
@@ -87,7 +76,7 @@ public class GeneticHeuristic extends AHeuristic {
     }
 
     /**
-     * Selects *randomly* a father (considering its weight) and sets it as the child
+     * *Randomly* selects a father (considering its weight) and sets it as the child
      */
     private Solution directCopy(float totalScore) {
         int index = (int) (Math.random() * totalScore);
@@ -183,7 +172,7 @@ public class GeneticHeuristic extends AHeuristic {
                 if (Math.random() > MUTATION_RATE) continue;
                 int other = (int) (Math.random() * chromosome.getInstance().getNbCities());
                 if (other == i) other = (other + 1) % chromosome.getInstance().getNbCities();
-                chromosomes[j] = (Math.random() < 0.0f ? swap(i, other, chromosome) : twoOpt(i, other, chromosome));
+                chromosomes[j] = (Math.random() < 0.5f ? swap(i, other, chromosome) : twoOpt(i, other, chromosome));
             }
         }
     }
