@@ -9,7 +9,7 @@ import tsp.neighborhood.ANeighborhood;
 
 /**
  * @author leovu
- *
+ * Swap the last city in a solution with all the other cities.
  */
 public class LSA_SwapNeighborhood extends ANeighborhood {
 
@@ -20,6 +20,7 @@ public class LSA_SwapNeighborhood extends ANeighborhood {
 
 	@Override
 	/**
+	 * @parma Solution sol the initial solution
 	 * @return Generates the list of neighbors of the Solution sol by swapping the last city of the path with the others
 	 * 
 	 * */
@@ -35,6 +36,7 @@ public class LSA_SwapNeighborhood extends ANeighborhood {
 	}
 	
 /**
+ * @param int i, int j, Solution sol
  * @return Creates a new solution where the index i with the index j in the Solution sol are switched
  *  
  */

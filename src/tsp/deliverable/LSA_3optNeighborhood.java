@@ -11,7 +11,7 @@ import tsp.neighborhood.ANeighborhood;
 /**
  * 
  * @author leovu
- *
+ * The 3-opt method is a 2-opt extention where we remove 3 points instead of 2
  */
 public class LSA_3optNeighborhood extends ANeighborhood{
 
@@ -22,8 +22,9 @@ public class LSA_3optNeighborhood extends ANeighborhood{
 
 	@Override
 	/**
+	 * @param Solution sol : the initial solution
 	 * @return Generates the list of neighbors of the Solution sol with the 2-opt method
-	 * 
+	 * @throws Exception
 	 * */
 	public List<Solution> getNeighborhood(Solution sol) throws Exception {
 		// TODO Auto-generated method stub
@@ -38,7 +39,15 @@ public class LSA_3optNeighborhood extends ANeighborhood{
 		return solutions;
 	}
 	
-
+	/**
+	 * 
+	 * @param int i
+	 * @param int j
+	 * @param int k
+	 * @param Solution sol
+	 * @return Creates a list of solutions with all the possible reconnections of the 3 cities indexes i j k.
+	 * @throws Exception
+	 */
 private List<Solution> threeOptSwap(int i, int j, int k, Solution sol) throws Exception {
 	List<Solution> solutions = new ArrayList<Solution>();
 	//sol has the connections (i,i+1) (j,j+1) (k,k+1)	
@@ -112,7 +121,12 @@ private List<Solution> threeOptSwap(int i, int j, int k, Solution sol) throws Ex
 
 
 /**
- * @return Creates a new solution where we have switched the index i with the index j in the Solution sol
+ * 
+ * @param int i
+ * @param int j
+ * @param Solution sol
+ * @return Creates a new solution where we have inverted the order of the cities between 
+ * the index i and the index j (including i and j) in the Solution sol
  *  
  */
 	public Solution swap(int i, int j, Solution sol) {

@@ -7,7 +7,12 @@ import tsp.Solution;
 import tsp.heuristic.AHeuristic;
 
 /*
- * Variable neighborhood search method
+ * 
+ * @author leovu
+ * Variable neighborhood search method with 3 Neighborhood :
+ * - 2-opt neighborhood
+ * - swap last index neighborhood
+ * - shift an 8 city sequence neighborhood
  */
 public class LocalSearchHeuristic extends AHeuristic {
 	private Solution bestEver;
@@ -39,30 +44,29 @@ public class LocalSearchHeuristic extends AHeuristic {
 		setBestEver(sol);
 		setCurrentBest(sol);
 	}
-
-	public LocalSearchHeuristic(Instance instance,Solution sol) throws Exception {
-		super(instance, "Local Search");
-		neighbors1=new LSA_SwapNeighborhood(instance, "neighbors");
-		neighbors2=new LSA_2optNeighborhood(instance, "neighbors");
-		neighbors3=new LSA_ShiftNeighborhood(instance, "neighbors");
-		methodChange = 0;
-		stop = 0;
-		setBestEver(sol);
-		setCurrentBest(sol);
-	}
-
+	
 	public Solution getSolution() {
 		return bestEver;
 	}
-
+	
+	/**
+	 * Sets a new best ever solution
+	 * @param bestEver the new best ever Solution
+	 */
 	public void setBestEver(Solution bestEver) {
 		this.bestEver = bestEver;
 	}
-
+	
+	/**
+	 * Sets a new current best solution
+	 * @param currentBest the new current best Solution
+	 */
 	public void setCurrentBest(Solution currentBest) {
 		this.currentBest = currentBest;
 	}
-
+	/**
+	 * @return returns true if the iteration in solve should stop and false if the iteration needs to continue
+	 */
 	public boolean isStopped() {
 		return stop>=3;
 	}
