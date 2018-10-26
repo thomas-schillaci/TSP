@@ -18,11 +18,11 @@ public class BestInsertionOfNextCityHeuristic extends AHeuristic{
 
 	@Override
 	public void solve() throws Exception {
-		ArrayList<Integer> used=new ArrayList<Integer>();
+		ArrayList<Integer> used=new ArrayList<Integer>();				//used is the list of cities that were visited, empty at first
 		Solution solution=new Solution(m_instance);
 		int firstCity= (int) (Math.random() * m_instance.getNbCities());
 		used.add(firstCity);
-		int secondCity= (int) (Math.random() * m_instance.getNbCities());
+		int secondCity= (int) (Math.random() * m_instance.getNbCities()); // we choose the two first cities randomly 
 		used.add(secondCity);
 		for(int i=0;i<m_instance.getNbCities();i++) {
 			if ((i!=firstCity && i!=secondCity))	used.add(bestInsertion(i,used), i);
@@ -36,10 +36,9 @@ public class BestInsertionOfNextCityHeuristic extends AHeuristic{
 	}
 	
 /**
- * Finds the best position to insert the city city in the List of cities that are already placed.
  * @param city
  * @param used
- * @return
+ * @return	the best position to insert the city city within the list of cities used
  * @throws Exception
  */
 

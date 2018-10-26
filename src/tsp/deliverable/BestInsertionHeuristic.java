@@ -22,6 +22,7 @@ public class BestInsertionHeuristic extends AHeuristic {
 
 	@Override
 	public void solve() throws Exception {
+
 		for (int m = 0; m < m_instance.getNbCities(); m++) {
 			ArrayList<Integer> used = new ArrayList<Integer>(); // used is the list of city already visited, at first it is
 			// empty
@@ -51,14 +52,20 @@ public class BestInsertionHeuristic extends AHeuristic {
 			if(solution.getObjectiveValue()<m_solution.getObjectiveValue() || m_solution.getObjectiveValue()==0) m_solution=solution.copy();
 		}
 	}
-
+/**
+ * 
+ * @param used cities visited
+ * @param unused cities yet to visit
+ * @return city best city to visit and position the position where we insert city
+ * @throws Exception
+ */
 	public int[] bestInsertion(ArrayList<Integer> used, ArrayList<Integer> unused) throws Exception {
 		int city = unused.get(0);
 		int position = 1;
 		long addedLength = m_instance.getDistances(used.get(0), unused.get(0))
 				+ m_instance.getDistances(unused.get(0), used.get(1))
 				- m_instance.getDistances(used.get(0), used.get(1));
-		for (int unusedCity : unused) {
+		for (int unusedCity : unused) {			
 			if (addedLength > m_instance.getDistances(used.get(used.size() - 1), unusedCity)
 					+ m_instance.getDistances(unusedCity, used.get(0)) - m_instance.getDistances(used.get(used.size() - 1), used.get(0))) {
 				city = unusedCity;
@@ -78,6 +85,12 @@ public class BestInsertionHeuristic extends AHeuristic {
 		return bestInsertion;
 	}
 
+	/**
+	 * 
+	 * @param city 
+	 * @param citiesToVisit 
+	 * @return the nearest city of city within the cities yet to be visited
+	 */
 	public int findNearestNeighbor(int city, ArrayList<Integer> citiesToVisit) {
 		int nearest = citiesToVisit.get(0);
 		for (int candidate : citiesToVisit) {
@@ -93,4 +106,3 @@ public class BestInsertionHeuristic extends AHeuristic {
 	}
 }
 
-// giovanni.lo-bianco@imt-atlantique.fr

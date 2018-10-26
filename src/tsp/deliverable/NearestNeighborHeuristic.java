@@ -39,7 +39,12 @@ public class NearestNeighborHeuristic extends AHeuristic{
 		m_solution.evaluate();
 	}
 
-// Finds the nearest city from a given city within a list of cities
+/**
+ * 
+ * @param city
+ * @param citiesToVisit
+ * @return the nearest city of city within the list citiesToVisit
+ */
 	public int findNearestNeighbor(int city, ArrayList<Integer> citiesToVisit) {
 		int nearest = citiesToVisit.get(0);
 		for (int candidate : citiesToVisit) {
