@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class GeneticHeuristic extends AHeuristic {
 
     private final int POPULATION = 800;
-    private final float MUTATION_RATE = 0.01f;
+    private final float MUTATION_RATE = 0.1f;
     private int swathLength;
 
     private Solution[] chromosomes;

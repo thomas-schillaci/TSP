@@ -98,7 +98,6 @@ public class TSPSolver {
             long start = System.currentTimeMillis();
             heuristic.solve();
             now = System.currentTimeMillis();
-            System.out.println(((GeneticHeuristic) heuristic).getLastObjectiveValue());
             if(now-start>maxElapsedTime)maxElapsedTime=now-start;
         }
 
