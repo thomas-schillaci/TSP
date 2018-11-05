@@ -47,6 +47,6 @@
 - Genetic Heuristic with varying reproductions (direct, pmx) for all sizes | always decreases the objective value
 
 ## Final heuristic
-- Using of a starting heuristic (BestInsertion for n<72 and NearestNeighbor otherwise)
+- Use of a starting heuristic (BestInsertion for n<72 and NearestNeighbor otherwise)
 - Take the solution through the LocalSearchHeuristic
 - Improve it with the GeneticHeuristic during the remaning time
