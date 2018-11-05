@@ -106,8 +106,22 @@ public class TSPSolver {
             now = System.currentTimeMillis();
             if(now-start>maxElapsedTime)maxElapsedTime=now-start;
         }
-
+        
         m_solution = heuristic.getSolution();
+        int i=0;
+        while (m_solution.getCity(i)!=0) {
+        	i++;
+        }
+        Solution solution=m_solution.copy();
+        m_solution.setCityPosition(0, 0);
+        m_solution.setCityPosition(0, m_instance.getNbCities());
+        for (int j=i+1;j<m_instance.getNbCities();j++) {
+        	m_solution.setCityPosition(solution.getCity(j), j-i);
+        }
+        for (int k=0;k<i;k++) {
+        	m_solution.setCityPosition(solution.getCity(k), k+m_instance.getNbCities()-i);
+        }
+        m_solution.print(System.out);
     }
 
     // -----------------------------
