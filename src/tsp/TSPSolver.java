@@ -1,7 +1,10 @@
 package tsp;
 
 
-import tsp.deliverable.*;
+import tsp.deliverable.BestInsertionHeuristic;
+import tsp.deliverable.GeneticHeuristic;
+import tsp.deliverable.LocalSearchHeuristic;
+import tsp.deliverable.NearestNeighborHeuristic;
 import tsp.heuristic.AHeuristic;
 
 /**
@@ -67,41 +70,41 @@ public class TSPSolver {
      * For large problems (n>72), uses the best of 1000 NearestNeighborsHeuristic
      * Then passes the starting heuristic through the LocalSearchHeuristic to obtain a solution
      * Then tries to decrease the objective value by passing the solution through the GeneticHeuristic
+     * Then shifts the cities to have city zero as index zero
      */
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
 
-        AHeuristic heuristic = (m_instance.getNbCities()>72 ? new NearestNeighborHeuristic(m_instance) : new BestInsertionHeuristic(m_instance));
+        AHeuristic heuristic = (m_instance.getNbCities() > 72 ? new NearestNeighborHeuristic(m_instance) : new BestInsertionHeuristic(m_instance));
         heuristic.solve();
 
         heuristic = new LocalSearchHeuristic(m_instance, heuristic.getSolution());
         heuristic.solve();
 
         heuristic = new GeneticHeuristic(heuristic.getSolution(), m_instance);
-        long maxElapsedTime=-1;
+        long maxElapsedTime = -1;
         long now = System.currentTimeMillis();
-        while (now - startTime < m_timeLimit * 1000 - 5*maxElapsedTime) {
+        while (now - startTime < m_timeLimit * 1000 - 5 * maxElapsedTime) {
             long start = System.currentTimeMillis();
             heuristic.solve();
             now = System.currentTimeMillis();
-            if(now-start>maxElapsedTime)maxElapsedTime=now-start;
+            if (now - start > maxElapsedTime) maxElapsedTime = now - start;
         }
-        
+
         m_solution = heuristic.getSolution();
-        int i=0;
-        while (m_solution.getCity(i)!=0) {
-        	i++;
+        int i = 0;
+        while (m_solution.getCity(i) != 0) {
+            i++;
         }
-        Solution solution=m_solution.copy();
+        Solution solution = m_solution.copy();
         m_solution.setCityPosition(0, 0);
         m_solution.setCityPosition(0, m_instance.getNbCities());
-        for (int j=i+1;j<m_instance.getNbCities();j++) {
-        	m_solution.setCityPosition(solution.getCity(j), j-i);
+        for (int j = i + 1; j < m_instance.getNbCities(); j++) {
+            m_solution.setCityPosition(solution.getCity(j), j - i);
         }
-        for (int k=0;k<i;k++) {
-        	m_solution.setCityPosition(solution.getCity(k), k+m_instance.getNbCities()-i);
+        for (int k = 0; k < i; k++) {
+            m_solution.setCityPosition(solution.getCity(k), k + m_instance.getNbCities() - i);
         }
-        m_solution.print(System.out);
     }
 
     // -----------------------------

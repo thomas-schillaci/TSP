@@ -5,8 +5,6 @@ import tsp.Solution;
 import tsp.heuristic.AHeuristic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * A genetic-algorithm-approach
@@ -24,7 +22,7 @@ public class GeneticHeuristic extends AHeuristic {
 
     private Solution[] chromosomes;
     private long lastObjectiveValue = -1;
-    private float meanDistance=0;
+    private float meanDistance = 0;
 
     /**
      * Initializes each chromosome as a copy of the solution
@@ -70,7 +68,7 @@ public class GeneticHeuristic extends AHeuristic {
         Solution[] newGeneration = new Solution[POPULATION];
         newGeneration[0] = best.copy();
         for (int i = 1; i < newGeneration.length; i++)
-            newGeneration[i] = (Math.random()<1.0?directCopy(totalScore):pmx(totalScore));
+            newGeneration[i] = (Math.random() < 1.0f ? directCopy(totalScore) : pmx(totalScore));
 
         chromosomes = newGeneration;
     }
@@ -106,7 +104,7 @@ public class GeneticHeuristic extends AHeuristic {
 
         i2 = i1;
         while (i2 == i1) {
-            count=0;
+            count = 0;
             index = (int) (Math.random() * totalScore);
             for (int i = 0; i < chromosomes.length; i++) {
                 count += getScore(chromosomes[i]);
@@ -126,23 +124,23 @@ public class GeneticHeuristic extends AHeuristic {
         ArrayList<Integer> swath = new ArrayList<>();
 
         try {
-            for (int i = startingIndex; i < startingIndex + swathLength; i++){
+            for (int i = startingIndex; i < startingIndex + swathLength; i++) {
                 swath.add(s1.getCity(i));
                 done.add(s1.getCity(i));
             }
 
-            int toInsert=-1;
-            boolean inserted=true;
+            int toInsert = -1;
+            boolean inserted = true;
             for (int i = startingIndex; i < startingIndex + swathLength; i++) {
                 if (done.contains(s2.getCity(i))) continue;
-                if(inserted) {
+                if (inserted) {
                     toInsert = s2.getCity(i);
-                    inserted=false;
+                    inserted = false;
                 }
                 index = s1.getCity(i);
                 for (int j = 0; j < m_instance.getNbCities(); j++) {
-                    if(s2.getCity(j)==index) {
-                        index=j;
+                    if (s2.getCity(j) == index) {
+                        index = j;
                         break;
                     }
                 }
@@ -155,12 +153,12 @@ public class GeneticHeuristic extends AHeuristic {
                     inserted = true;
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return child;
-}
+    }
 
     /**
      * Selects the genes to mutate
@@ -168,10 +166,11 @@ public class GeneticHeuristic extends AHeuristic {
     private void mutation() {
         for (int j = 1; j < chromosomes.length; j++) {
             Solution chromosome = chromosomes[j];
-            for (int i = 0; i < m_instance.getNbCities()-1; i++) {
+            for (int i = 1; i < m_instance.getNbCities(); i++) {
                 if (Math.random() > MUTATION_RATE) continue;
-                int other = (int) (Math.random() * chromosome.getInstance().getNbCities());
-                if (other == i) other = (other + 1) % chromosome.getInstance().getNbCities();
+                int other = i;
+                while (other >= i - 1 && other <= i + 1)
+                    other = (int) (Math.random() * chromosome.getInstance().getNbCities() - 1) + 1;
                 chromosomes[j] = (Math.random() < 0.5f ? swap(i, other, chromosome) : twoOpt(i, other, chromosome));
             }
         }
@@ -198,7 +197,7 @@ public class GeneticHeuristic extends AHeuristic {
     private Solution twoOpt(int i, int j, Solution chromosome) {
         Solution copy = chromosome.copy();
         try {
-            for(int k=i;k<=j;k++) copy.setCityPosition(chromosome.getCity(j - k + i), k);
+            for (int k = i; k <= j; k++) copy.setCityPosition(chromosome.getCity(j - k + i), k);
         } catch (Exception e) {
             e.printStackTrace();
         }
