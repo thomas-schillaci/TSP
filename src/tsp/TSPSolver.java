@@ -19,7 +19,7 @@ import tsp.heuristic.AHeuristic;
  * @version 2017
  */
 public class TSPSolver {
-	
+
     // -----------------------------
     // ----- ATTRIBUTS -------------
     // -----------------------------
@@ -71,24 +71,10 @@ public class TSPSolver {
     public void solve() throws Exception {
         long startTime = System.currentTimeMillis();
 
-        AHeuristic startingHeuristic;
-        if(m_instance.getNbCities()>72) {
-            AHeuristic[] startingHeuristics = new AHeuristic[1000];
-            for (int i = 0; i < startingHeuristics.length; i++) {
-                startingHeuristics[i] = new NearestNeighborHeuristic(m_instance);
-                startingHeuristics[i].solve();
-            }
-            startingHeuristic = startingHeuristics[0];
-            for (int i = 1; i < startingHeuristics.length; i++)
-                if (startingHeuristics[i].getSolution().getObjectiveValue() < startingHeuristic.getSolution().getObjectiveValue())
-                    startingHeuristic = startingHeuristics[i];
-        }
-        else {
-            startingHeuristic = new BestInsertionHeuristic(m_instance);
-            startingHeuristic.solve();
-        }
+        AHeuristic heuristic = (m_instance.getNbCities()>72 ? new NearestNeighborHeuristic(m_instance) : new BestInsertionHeuristic(m_instance));
+        heuristic.solve();
 
-        AHeuristic heuristic = new LocalSearchHeuristic(m_instance, startingHeuristic.getSolution());
+        heuristic = new LocalSearchHeuristic(m_instance, heuristic.getSolution());
         heuristic.solve();
 
         heuristic = new GeneticHeuristic(heuristic.getSolution(), m_instance);

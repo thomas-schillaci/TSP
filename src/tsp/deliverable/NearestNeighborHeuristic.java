@@ -21,22 +21,24 @@ public class NearestNeighborHeuristic extends AHeuristic{
 
 	@Override
 	public void solve() throws Exception {
-		ArrayList<Integer> unused= new ArrayList<>();     	// unused is the list of cities yet to visit
-		for (int j=0;j<m_instance.getNbCities();j++) {		
-			unused.add(j);									//at first, evey city is yet to be visited
+		for (int k = 0; k < m_instance.getNbCities(); k++) {
+			ArrayList<Integer> unused= new ArrayList<>();     	// unused is the list of cities yet to visit
+			for (int j=0;j<m_instance.getNbCities();j++) {
+				unused.add(j);									//at first, evey city is yet to be visited
+			}
+			Solution solution=new Solution(m_instance);
+			int firstCity=k;	//we choose the first city randomly
+			solution.setCityPosition(firstCity, 0);
+			solution.setCityPosition(firstCity, m_instance.getNbCities());
+			unused.remove(firstCity);
+			for (int i=1;i<m_instance.getNbCities();i++) {
+				int nextCity=findNearestNeighbor(solution.getCity(i-1),unused);
+				unused.remove(unused.indexOf(nextCity));
+				solution.setCityPosition(nextCity, i);
+			}
+			solution.evaluate();
+			if(solution.getObjectiveValue()<m_solution.getObjectiveValue() || m_solution.getObjectiveValue()==0) m_solution=solution.copy();
 		}
-		Solution solution=new Solution(m_instance);
-		int firstCity=(int)(Math.random()*m_instance.getNbCities());	//we choose the first city randomly
-		solution.setCityPosition(firstCity, 0);
-		solution.setCityPosition(firstCity, m_instance.getNbCities());
-		unused.remove(firstCity);							
-		for (int i=1;i<m_instance.getNbCities();i++) {		
-			int nextCity=findNearestNeighbor(solution.getCity(i-1),unused);
-			unused.remove(unused.indexOf(nextCity));
-			solution.setCityPosition(nextCity, i);
-		}
-		m_solution=solution;
-		m_solution.evaluate();
 	}
 
 /**
